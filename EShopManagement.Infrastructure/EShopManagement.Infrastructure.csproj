@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="EF\Config\" />
+    <Folder Include="EF\Contexts\" />
+    <Folder Include="EF\Migrations\" />
+    <Folder Include="EF\Models\" />
+    <Folder Include="EF\Options\" />
+    <Folder Include="EF\Queries\Handlers\" />
+    <Folder Include="EF\Repositories\" />
+    <Folder Include="EF\Services\" />
+    <Folder Include="Logging\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+</Project>
