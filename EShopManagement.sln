@@ -9,11 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{5581EA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShopManagement.Shared.Abstractions", "EShopManagement.Shared.Abstractions\EShopManagement.Shared.Abstractions.csproj", "{79180148-8F5A-4924-8F0C-8EDB51E239A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShopManagement.Application", "EShopManagement.Application\EShopManagement.Application.csproj", "{165EA75E-0BD3-44C7-8908-8F1303249A36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShopManagement.Application", "EShopManagement.Application\EShopManagement.Application.csproj", "{165EA75E-0BD3-44C7-8908-8F1303249A36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShopManagement.Infrastructure", "EShopManagement.Infrastructure\EShopManagement.Infrastructure.csproj", "{B76F0956-EB03-4580-855B-C7C23EFACC2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShopManagement.Infrastructure", "EShopManagement.Infrastructure\EShopManagement.Infrastructure.csproj", "{B76F0956-EB03-4580-855B-C7C23EFACC2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShopManagement.Shared", "EShopManagement.Shared\EShopManagement.Shared.csproj", "{40CBD202-FAC8-454B-A2F8-EE90269E153A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShopManagement.Shared", "EShopManagement.Shared\EShopManagement.Shared.csproj", "{40CBD202-FAC8-454B-A2F8-EE90269E153A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShopManagement.WebMVC", "EShopManagement.WebMVC\EShopManagement.WebMVC.csproj", "{D96DF76F-5622-41E1-9DEC-FF25644A15BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{40CBD202-FAC8-454B-A2F8-EE90269E153A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40CBD202-FAC8-454B-A2F8-EE90269E153A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40CBD202-FAC8-454B-A2F8-EE90269E153A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D96DF76F-5622-41E1-9DEC-FF25644A15BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D96DF76F-5622-41E1-9DEC-FF25644A15BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D96DF76F-5622-41E1-9DEC-FF25644A15BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D96DF76F-5622-41E1-9DEC-FF25644A15BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

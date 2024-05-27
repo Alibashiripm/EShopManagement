@@ -1,17 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Commands\Handlers\" />
-    <Folder Include="DTO\External\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="Queries\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="13.0.1" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\EShopManagement.Domain\EShopManagement.Domain.csproj" />
+		<ProjectReference Include="..\EShopManagement.Shared.Abstractions\EShopManagement.Shared.Abstractions.csproj" />
+		<ProjectReference Include="..\EShopManagement.Shared\EShopManagement.Shared.csproj" />
+	</ItemGroup>
 </Project>
