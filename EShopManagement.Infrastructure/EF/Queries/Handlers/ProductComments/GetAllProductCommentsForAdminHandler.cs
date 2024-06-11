@@ -3,7 +3,7 @@ using EShopManagement.Application.Queries.ProductCategory;
 using EShopManagement.Application.Queries.ProductComment;
 using EShopManagement.Domain.Entities.Blog;
 using EShopManagement.Infrastructure.EF.Contexts;
-using EShopManagement.Infrastructure.EF.Models;
+ 
 using EShopManagement.Shared.Abstractions.Queries;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,7 +17,7 @@ namespace EShopManagement.Infrastructure.EF.Queries.Handlers.ProductComments
 
     internal sealed class GetAllProductCommentsForAdminHandler : IQueryHandler<GetAllProductCommentsForAdmin, List<AdminProductCommentDto>>
     {
-        private readonly DbSet<ProductCommentReadModel> _productComments;
+        private readonly DbSet<Domain.Entities.Product.ProductComment> _productComments;
 
 
         public GetAllProductCommentsForAdminHandler(ReadDbContext context)
@@ -30,9 +30,9 @@ namespace EShopManagement.Infrastructure.EF.Queries.Handlers.ProductComments
             return await _productComments
                  .Where(b => query.ProductIds.Contains(b.ProductId)
                  && b.IsConfirmed == query.IsConfirmed
-                 && b.CreateDate > query.StartDate
-                 && b.CreateDate < query.EndDate)
-                 .OrderBy(o => o.CreateDate)
+                 && b._createDate.Value > query.StartDate
+                 && b._createDate.Value < query.EndDate)
+                 .OrderBy(o => o._createDate.Value)
                  .Skip(skip)
                  .Take(query.TakeNumber)
                  .Select(s => s.AsAdminProductCommentDto())

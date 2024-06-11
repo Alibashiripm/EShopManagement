@@ -1,0 +1,37 @@
+﻿ 
+<div class="col-md-3 col-sm-4 col-xs-12">
+    <aside>
+
+        <div class="avatar-layer">
+            <div class="img-layer">
+                <a href="/UserPanel/EditAvatar" class="change-image"><i class="zmdi zmdi-edit"></i></a>
+                <img id="userAvatarPhoto" src="">
+            </div>
+            <div class="detail">
+                <span> @User.Identity.Name </span>
+            </div>
+        </div>
+
+        <section>
+            <header><h3> Desk </h3></header>
+            <div class="inner">
+                <ul>
+                    <li><a href="/UserPanel">Main page </a></li>
+                    <li><a href="/UserPanel/EditAvatar"> Edit Avatar </a></li>
+                    <li><a href="/UserPanel/ChangePassword"> Change Password </a></li>
+                     <li><a href="/UserPanel/Order"> Orders </a></li>
+                     <li><a href="/Logout"> Logout </a></li>
+                </ul>
+            </div>
+        </section>
+    </aside>
+</div>
+<script>
+    window.onload = function () {
+        const imgElement = document.getElementById('userAvatarPhoto');
+        const imageName = localStorage.getItem('userAvatarPhotoName');
+        if (imageName) {
+            imgElement.src ="/UserAvatar/"+ imageName; 
+        }
+    };
+</script>

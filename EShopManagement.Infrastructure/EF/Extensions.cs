@@ -5,10 +5,13 @@ using EShopManagement.Domain.Entities.Product;
 using EShopManagement.Domain.Entities.User;
 using EShopManagement.Domain.Repositories;
 using EShopManagement.Infrastructure.EF.Contexts;
+ 
 using EShopManagement.Infrastructure.EF.Options;
 using EShopManagement.Infrastructure.EF.Repositories;
 using EShopManagement.Infrastructure.EF.Services;
 using EShopManagement.Shared.Options;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,13 +37,28 @@ namespace EShopManagement.Infrastructure.EF
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IUserService, UserService>();
-     
-  
+ 
+          
             var options = configuration.GetOptions<DataBaseOptions>("DataBaseConnectionString");
+            
+
             services.AddDbContext<ReadDbContext>(ctx =>
             ctx.UseSqlServer(options.ConnectionString));
             services.AddDbContext<WriteDbContext>(ctx =>
                 ctx.UseSqlServer(options.ConnectionString));
+
+            services.AddIdentity<User, Role>(options =>{ 
+            options.Password.RequireDigit = false;
+            options.Password.RequiredLength = 1;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequireLowercase = false;
+                options.Password.RequiredUniqueChars = 1;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            })
+                    .AddEntityFrameworkStores<WriteDbContext>()
+                    .AddEntityFrameworkStores<ReadDbContext>()             
+                    .AddDefaultTokenProviders().AddSignInManager<SignInManager<User>>();
 
             return services;
         }

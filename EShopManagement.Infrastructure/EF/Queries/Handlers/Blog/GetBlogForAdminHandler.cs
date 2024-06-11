@@ -1,7 +1,7 @@
 ﻿using EShopManagement.Application.DTOs.Blog.Admin;
 using EShopManagement.Application.Queries.Blog;
 using EShopManagement.Infrastructure.EF.Contexts;
-using EShopManagement.Infrastructure.EF.Models;
+ 
 using EShopManagement.Shared.Abstractions.Queries;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +9,7 @@ namespace EShopManagement.Infrastructure.EF.Queries.Handlers.Blog
 {
     internal sealed class GetBlogForAdminHandler : IQueryHandler<GetBlogForAdmin, AdminBlogDto>
     {
-        private readonly DbSet<BlogReadModel> _blogs;
+        private readonly DbSet<Domain.Entities.Blog.Blog> _blogs;
 
         public GetBlogForAdminHandler(ReadDbContext context)
         {

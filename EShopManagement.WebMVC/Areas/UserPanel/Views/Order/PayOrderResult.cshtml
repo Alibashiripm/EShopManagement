@@ -1,0 +1,30 @@
+﻿ @model bool
+@{
+    ViewData["Title"] = "The result of payment";
+}
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Eshop Management</a></li>
+            <li class="breadcrumb-item" aria-current="page">The result of payment</li>
+        </ul>
+    </nav>
+</div>
+<div class="container">
+    @if (Model)
+    {
+        <div class="alert alert-success">
+            <h2>Payment was successful</h2>
+            <br />
+            <p>Thank you for your purchase</p>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            <h2>Payment failed</h2>
+
+        </div>
+    }
+</div>

@@ -1,0 +1,119 @@
+﻿@using EShopManagement.Application.DTOs.Order
+@model OrderDto
+@{
+    ViewData["Title"] = "ShowOrder";
+    string discountType = ViewBag.typeDiscount.ToString();
+}
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Eshop Management</a></li>
+            <li class="breadcrumb-item" aria-current="page">Show Order </li>
+        </ul>
+    </nav>
+</div>
+
+<main>
+    <div class="container">
+        <div class="user-account">
+            <div class="row">
+                <partial name="_SideBar" />
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                    <section class="user-account-content">
+                        <header><h1> Order </h1></header>
+                        @if (Model.IsFinaly)
+                        {
+                            <div class="alert alert-success">
+                                The invoice was paid successfully
+                            </div>
+                        }
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+
+                                    <th>Price</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.OrderDetails)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a href="/Product/@item?.ProductId" target="_blank">Product Id : @item.ProductId</a>
+                                        </td>
+
+                                        <td>@item.Price</td>
+                                    </tr>
+                                }
+                                @if (!Model.IsFinaly)
+                                {
+                                    <tr>
+                                        <td colspan="3" class="text-left">Discount Code</td>
+                                        <td>
+                                            <form action="/UserPanel/Order/ApplyDiscount" method="post">
+                                                <input type="hidden" name="Id" value="@Model.OrderId" />
+                                                <input type="text" name="code" class="form-control" />
+                                                <input type="submit" class="btn btn-primary btn-block" style="margin-top: 5px" value="Apply" />
+                                                @if (discountType != "")
+                                                {
+                                                    switch (discountType)
+                                                    {
+                                                        case "Success":
+                                                            {
+                                                                <div class="alert alert-success">
+                                                                    <p class="text-muted">Code applied successfully</p>
+                                                                </div>
+                                                                break;
+                                                            }
+                                                        case "ExpierDate":
+                                                            {
+                                                                <div class="alert alert-danger">
+                                                                    <p class="text-muted">The code has expired</p>
+                                                                </div>
+                                                                break;
+                                                            }
+                                                        case "NotFound":
+                                                            {
+                                                                <div class="alert alert-warning">
+                                                                    <p class="text-muted">The code is not valid</p>
+                                                                </div>
+                                                                break;
+                                                            }
+                                                        case "Finished":
+                                                            {
+                                                                <div class="alert alert-danger">
+                                                                    <p class="text-muted">The number of codes has been exhausted</p>
+                                                                </div>
+                                                                break;
+                                                            }
+                                                        case "UserUsed":
+                                                            {
+                                                                <div class="alert alert-info">
+                                                                    <p class="text-muted">This code has already been used by you</p>
+                                                                </div>
+                                                                break;
+                                                            }
+                                                    }
+                                                }
+                                            </form>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-left"></td>
+                                        <td colspan="2">
+                                            <a class="btn btn-success btn-block" href="/UserPanel/Orders/PayOrder/@Model.OrderId">Confirm the invoice and go to the payment portal</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

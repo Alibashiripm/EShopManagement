@@ -1,0 +1,22 @@
+﻿.field-validation-error {
+    color: red;
+}
+.clientarea {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.loggein, .signin {
+    display: flex;
+    align-items: center;
+}
+
+    .loggein a, .signin a {
+        margin-left: 0px;
+        text-decoration: none;
+    }
+
+    .loggein i, .signin i {
+        margin-right: 0px;
+    }

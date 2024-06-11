@@ -4,7 +4,7 @@ using EShopManagement.Domain.Entities.Blog;
 using EShopManagement.Domain.Factories.Order;
 using EShopManagement.Domain.Repositories;
 using EShopManagement.Infrastructure.EF.Contexts;
-using EShopManagement.Infrastructure.EF.Models;
+ 
 using EShopManagement.Infrastructure.EF.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,7 +18,7 @@ namespace EShopManagement.Infrastructure.EF.Services
     internal sealed class BlogService : IBlogService
     {
 
-        private readonly DbSet<BlogReadModel> _blogs;
+        private readonly DbSet<Blog > _blogs;
         private readonly DbSet<BlogComment> _blogComments;
         private readonly WriteDbContext writeDbContext;
 
@@ -44,7 +44,7 @@ namespace EShopManagement.Infrastructure.EF.Services
 
         public async Task<bool> IsBlogExistWithTitleAsync(string BlogTitle)
         {
-            return await _blogs.AnyAsync(b => b.Title == BlogTitle);
+            return await _blogs.AnyAsync(b => b._title.Value == BlogTitle);
         }
     }
 }

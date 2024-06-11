@@ -12,7 +12,6 @@ namespace EShopManagement.Domain.ValueObjects.Order.Discount
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
 
-        // Constructor
         public DiscountDateRange(DateTime startDate, DateTime endDate)
         {
             if (startDate >= endDate)

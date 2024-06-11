@@ -1,7 +1,7 @@
 ﻿using EShopManagement.Application.DTOs.Product.Admin;
 using EShopManagement.Application.Queries.ProductCategory;
 using EShopManagement.Infrastructure.EF.Contexts;
-using EShopManagement.Infrastructure.EF.Models;
+ 
 using EShopManagement.Shared.Abstractions.Queries;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +9,7 @@ namespace EShopManagement.Infrastructure.EF.Queries.Handlers.ProductCategory
 {
     internal sealed class GetProductCategoryForAdminHandler : IQueryHandler<GetProductCategoryForAdmin, AdminProductCategoryDto>
     {
-        private readonly DbSet<ProductCategoryReadModel> _productCategories;
+        private readonly DbSet<Domain.Entities.Product.ProductCategory> _productCategories;
 
 
         public GetProductCategoryForAdminHandler(ReadDbContext context)

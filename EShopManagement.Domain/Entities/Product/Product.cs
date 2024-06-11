@@ -16,13 +16,13 @@ namespace EShopManagement.Domain.Entities.Product
         public ProductShortDescription _shortDescription;
         public ProductFileName? _fileName;
         public ProductPrice _price;
-        public string Tags { get; }
-        public string ImageName { get; }
-        public int? SubCategoryId { get;}
-        public int CategoryId { get; }
-        public long CellerId { get;}
-        public bool IsAvailable { get;}
-        public bool IsPremium { get; }
+        public string Tags { get; private set; }
+        public string ImageName { get; private set; }
+        public int? SubCategoryId { get; private set; }
+        public int CategoryId { get;private set; }
+        public long CellerId { get;private set;}
+        public bool IsAvailable { get;private set;}
+        public bool IsPremium { get;private set; }
         public bool IsDeleted { get; private set; } = false;
 
         public ProductCreateDate _createDate;

@@ -2,7 +2,7 @@
 using EShopManagement.Application.Queries.Role;
 using EShopManagement.Application.Queries.User;
 using EShopManagement.Infrastructure.EF.Contexts;
-using EShopManagement.Infrastructure.EF.Models;
+ 
 using EShopManagement.Shared.Abstractions.Queries;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,7 +16,7 @@ namespace EShopManagement.Infrastructure.EF.Queries.Handlers.User
 
     internal sealed class GetAllUsersForAdminHandler : IQueryHandler<GetAllUsersForAdmin, List<AdminUsersListDto>>
     {
-        private readonly DbSet<UserReadModel> _users;
+        private readonly DbSet<Domain.Entities.User.User> _users;
 
 
         public GetAllUsersForAdminHandler(ReadDbContext context)
@@ -31,10 +31,10 @@ namespace EShopManagement.Infrastructure.EF.Queries.Handlers.User
                  .Where(b => 
                  b.UserName.Contains(query.UserName) ||
                  b.Email.Contains(query.Email) ||
-                 b.RoleTitle.Contains(query.RoleTitle) ||
-                 b.IsActived == query.IsActived)
+                
+                 b.EmailConfirmed == query.IsActived)
                  .Include(u=>u.UserPremium)
-                 .Include(u=>u.Roles)
+ 
                  .OrderBy(o => o.RegistrationDate)
                  .Skip(skip)
                  .Take(query.TakeNumber)

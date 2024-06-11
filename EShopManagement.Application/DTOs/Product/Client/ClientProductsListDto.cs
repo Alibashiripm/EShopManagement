@@ -15,5 +15,6 @@ namespace EShopManagement.Application.DTOs.Product.Client
         public DateTime CreateDate { get; set; }
         public string ImageName { get; set; }
         public decimal Price { get; set; }
-    }  
+        public bool IsPremium { get; set; }
+    }
 }

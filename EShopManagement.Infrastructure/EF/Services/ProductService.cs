@@ -1,7 +1,7 @@
 ﻿using EShopManagement.Application.Services;
 using EShopManagement.Domain.Entities.Product;
 using EShopManagement.Infrastructure.EF.Contexts;
-using EShopManagement.Infrastructure.EF.Models;
+ 
 using Microsoft.EntityFrameworkCore;
 
 namespace EShopManagement.Infrastructure.EF.Services
@@ -9,7 +9,7 @@ namespace EShopManagement.Infrastructure.EF.Services
     internal sealed class ProductService : IProductService
     {
 
-        private readonly DbSet<ProductReadModel> _products;
+        private readonly DbSet<Product > _products;
         private readonly DbSet<ProductComment> _productsComments;
         private readonly WriteDbContext writeDbContext;
 
@@ -35,7 +35,7 @@ namespace EShopManagement.Infrastructure.EF.Services
 
         public async Task<bool> IsProductExistWithTitleAsync(string BlogTitle)
         {
-            return await _products.AnyAsync(b => b.Title == BlogTitle);
+            return await _products.AnyAsync(b => b._title.Value == BlogTitle);
         }
     }
 }

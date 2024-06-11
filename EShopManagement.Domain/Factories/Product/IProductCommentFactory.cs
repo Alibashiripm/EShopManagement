@@ -11,6 +11,6 @@ namespace EShopManagement.Domain.Factories.Product
     public interface IProductCommentFactory
     {
         ProductComment Create(ProductCommentContent content, ProductCommentCreateDate createDate, bool isConfirmed,
-                    long productId, long userId);
+                    int productId, int userId);
     }
 }

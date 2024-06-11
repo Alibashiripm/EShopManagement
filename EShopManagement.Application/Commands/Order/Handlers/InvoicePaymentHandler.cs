@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EShopManagement.Application.Commands.Order.Handlers
 {
-    internal sealed class InvoicePaymentHandler : ICommandHandler<InvoicePayment>
+    internal sealed class InvoicePaymentHandler : ICommandHandler<InvoicePayment, string>
     {
         private readonly IOrderService service;
 
@@ -17,13 +17,24 @@ namespace EShopManagement.Application.Commands.Order.Handlers
         {
             this.service = service;
         }
-        public async Task HandleAsync(InvoicePayment command)
+        public async Task<string> HandleAsync(InvoicePayment command)
         {
-            if (await service.IsOrderExistWithIdAsync(command.OrderId))
-            {
-                throw new EntityNotFoundExeption(command.OrderId.ToString(),"Order");
-            }
-            await service.FinalizeOrderAsync(command.OrderId, command.UserId);
-         }
+            var result = await service.InvoicePaymentAsync(command.Email, command.Description, command.CallBackUrl, command.OrderId);
+            return result;
+        }
+    }
+    internal sealed class InvoicePaymentResultHandler : ICommandHandler<InvoicePaymentResult, bool>
+    {
+        private readonly IOrderService service;
+
+        public InvoicePaymentResultHandler(IOrderService service)
+        {
+            this.service = service;
+        }
+        public async Task<bool> HandleAsync(InvoicePaymentResult command)
+        {
+            var result = await service.InvoicePaymentResultAsync(command.OrderId,command.UserId,command.ReuestQueries);
+            return result;
+        }
     }
 }

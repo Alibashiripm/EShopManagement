@@ -3,7 +3,7 @@ using EShopManagement.Application.DTOs.User.Admin;
 using EShopManagement.Application.Queries.ProductComment;
 using EShopManagement.Application.Queries.Role;
 using EShopManagement.Infrastructure.EF.Contexts;
-using EShopManagement.Infrastructure.EF.Models;
+ 
 using EShopManagement.Shared.Abstractions.Queries;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,7 +17,7 @@ namespace EShopManagement.Infrastructure.EF.Queries.Handlers.Role
 
     internal sealed class GetAllRolesHandler : IQueryHandler<GetAllRoles, List<AdminAllRoleDto>>
     {
-        private readonly DbSet<RoleReadModel> _roles;
+        private readonly DbSet<Domain.Entities.User.Role> _roles;
 
 
         public GetAllRolesHandler(ReadDbContext context)
@@ -27,8 +27,8 @@ namespace EShopManagement.Infrastructure.EF.Queries.Handlers.Role
         public async Task<List<AdminAllRoleDto>> HandleAsync(GetAllRoles query)
         {
              return await _roles
-                .OrderBy(r=>r.Title)
-                .Include(r=>r.Users)
+                .OrderBy(r=>r.Name)
+            
                  .Select(s => s.AsAdminAllRoleDto())
                  .AsNoTracking()
                  .ToListAsync();

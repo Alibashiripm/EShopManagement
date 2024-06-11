@@ -3,7 +3,7 @@ using Azure;
 using EShopManagement.Application.DTOs.Blog.Admin;
 using EShopManagement.Application.Queries.Blog;
 using EShopManagement.Infrastructure.EF.Contexts;
-using EShopManagement.Infrastructure.EF.Models;
+ 
 using EShopManagement.Shared.Abstractions.Queries;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,7 +16,7 @@ namespace EShopManagement.Infrastructure.EF.Queries.Handlers.Blog
 {
     internal sealed class GetAllBlogsForAdminHandler : IQueryHandler<GetAllBlogsForAdmin, List<AdminBlogsListDto>>
     {
-        private readonly DbSet<BlogReadModel> _blogs;
+        private readonly DbSet<Domain.Entities.Blog.Blog> _blogs;
     
 
         public GetAllBlogsForAdminHandler(ReadDbContext context)
@@ -28,8 +28,8 @@ namespace EShopManagement.Infrastructure.EF.Queries.Handlers.Blog
         {
             int skip = (query.PageNumber - 1) * query.TakeNumber;
            return await _blogs
-                .Where(b=>b.Title.Contains(query.SearchPhrase)|| b.Tags.Tags.Contains(query.SearchPhrase))
-                .OrderBy(o=>o.CreateDate)
+                .Where(b=>b._title.Value.Contains(query.SearchPhrase)|| b.Tags.Contains(query.SearchPhrase))
+                .OrderBy(o=>o._createDate.Value)
                 .Skip(skip)
                 .Take(query.TakeNumber)
                 .Select(s => s.AsAdminBlogsListDto())

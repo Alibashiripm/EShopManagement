@@ -20,13 +20,22 @@ namespace EShopManagement.Shared.Services
             using var scope = _serviceProvider.CreateScope();
             foreach (var dbContextType in dbContextTypes)
             {
-                var dbContext = scope.ServiceProvider.GetRequiredService(dbContextType) as DbContext;
-                if (dbContext is null)
+                try
+                {
+                    var dbContext = scope.ServiceProvider.GetRequiredService(dbContextType) as DbContext;
+                    if (dbContext is null)
+                    {
+                        continue;
+                    }
+
+                    await dbContext.Database.EnsureCreatedAsync(cancellationToken);
+
+                }
+                catch 
                 {
                     continue;
                 }
-
-                await dbContext.Database.EnsureCreatedAsync(cancellationToken);
+          
             }
         }
 

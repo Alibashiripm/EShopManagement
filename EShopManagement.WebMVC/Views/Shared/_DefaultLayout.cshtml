@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html class="no-js" dir="ltr" lang="en-us">
+<head>
+    
+     <partial name="_MetaTags" />
+    <partial name="_Styles" />
+    <script src="/js/jquery.min.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="~/css/images/Untitled-1-min.png" />
+
+</head>
+<body>
+    <script src="/js/modernizr-custom.js"></script>
+
+    <div class="landing-layer">
+        <div class="container">
+            <nav>
+                <div class="row">
+                    <div class="col-6">
+                        <ul>
+                            <li>
+                                <a href="/"> Home </a>
+                                <a href="/about-us"> About us </a>
+                                <a href="/contact-us"> Contact us </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <div class="clientarea">
+                          @if (User.Identity.IsAuthenticated)
+                          {
+                              <div class="loggein">
+                            
+                                 <a href="/UserPanel"> @User.Identity.Name ، WellCome </a> 
+                                  /
+                                    <a href="/Logout"> Logout </a>
+                                  </div>
+                          }
+                          else
+                          {
+                              <div class="signin">
+                                    <ul>
+                                        <li>
+                                    <a href="/Login"> Login </a> 
+                                    <a href="/Register"> Register </a>
+                                      </li>
+                        </ul>  
+                              </div> 
+                          }
+                      
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            @RenderSection("SearchBox", false)
+        </div>
+    </div>
+
+    <!-- main manu -->
+    @await Component.InvokeAsync("ProductCategoriesComponent")
+    <!-- /main manu -->
+    <!-- content -->
+    @RenderBody()
+    <!-- /content -->
+    <!-- footer -->
+    <partial name="_Footer" />
+    <!-- /footer -->
+
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.validate.unobtrusive.js"></script>
+@RenderSection("Scripts",false)
+
+</body>
+</html>

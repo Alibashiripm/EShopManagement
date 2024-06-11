@@ -18,7 +18,7 @@ namespace EShopManagement.Application.Commands.OrderDetail.Handlers
         public async Task HandleAsync(CreateOrderDetail command)
         {
             var orderDetail = command.DetailDto;
-            var orderDetailEntity = factory.Create(orderDetail.OrderId, orderDetail.ProductId, orderDetail.Price);
+            var orderDetailEntity = factory.Create(orderDetail.OrderId, orderDetail.Price, orderDetail.ProductId);
             await repository.CreateAsync(orderDetailEntity);
         }
     } 

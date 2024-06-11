@@ -17,5 +17,14 @@ namespace EShopManagement.Shared.Commands
 
             await handler.HandleAsync(command);
         }
+
+          public async Task<TResult> DispatchAsync<TCommand, TResult>(TCommand command) where TCommand : class, ICommand
+        {
+            using var scope = _serviceProvider.CreateScope();
+            var handler = scope.ServiceProvider.GetRequiredService<ICommandHandler<TCommand, TResult>>();
+
+         return  await handler.HandleAsync(command);
+ 
+        }
     }
 }

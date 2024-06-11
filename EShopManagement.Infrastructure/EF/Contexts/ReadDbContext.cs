@@ -1,24 +1,34 @@
-﻿using EShopManagement.Domain.Entities.User;
+﻿using EShopManagement.Domain.Entities.Blog;
+using EShopManagement.Domain.Entities.Order;
+using EShopManagement.Domain.Entities.Product;
+using EShopManagement.Domain.Entities.User;
 using EShopManagement.Infrastructure.EF.Config;
-using EShopManagement.Infrastructure.EF.Models;
+ 
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
  
 namespace EShopManagement.Infrastructure.EF.Contexts
 {
-    internal sealed class ReadDbContext : DbContext
+    internal sealed class ReadDbContext : IdentityDbContext<User, Role, int, IdentityUserClaim<int>, IdentityUserRole<int>, IdentityUserLogin<int>,
+  IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
-        public DbSet<BlogCommentReadModel> BlogComments{ get; set; }
-        public DbSet<BlogReadModel> Blogs{ get; set; }
-        public DbSet<DiscountReadModel> Discounts{ get; set; }
-        public DbSet<OrderReadModel> Orders{ get; set; }
-        public DbSet<OrderDetailReadModel> OrderDetails{ get; set; }
-        public DbSet<ProductCategoryReadModel> ProductCategories{ get; set; }
-        public DbSet<ProductReadModel> Products{ get; set; }
-        public DbSet<ProductCommentReadModel> ProductComments{ get; set; }
-        public DbSet<RoleReadModel> Roles{ get; set; }
-        public DbSet<UserReadModel> Users { get; set; }
-        public DbSet<UserPremiumReadModel> UserPremiums { get; set; }
-        public DbSet<UserDiscountCodeReadModel> UserDiscountCodes { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<BlogComment> BlogComments { get; set; }
+        public DbSet<Discount> Discounts { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<ProductComment> ProductComments { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        //public DbSet<UserRole> UserRoles { get; set; }
+
+        public DbSet<UserPremium> UserPremiums { get; set; }
+
+        public DbSet<UserDiscountCode> UserDiscountCodes { get; set; }
+
 
 
 
@@ -28,19 +38,30 @@ namespace EShopManagement.Infrastructure.EF.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var configuration = new ReadConfiguration();
-            modelBuilder.ApplyConfiguration<BlogCommentReadModel>(configuration);
-            modelBuilder.ApplyConfiguration<BlogReadModel>(configuration);
-            modelBuilder.ApplyConfiguration<DiscountReadModel>(configuration);
-            modelBuilder.ApplyConfiguration<OrderReadModel>(configuration);
-            modelBuilder.ApplyConfiguration<OrderDetailReadModel>(configuration);
-            modelBuilder.ApplyConfiguration<ProductCategoryReadModel>(configuration);
-            modelBuilder.ApplyConfiguration<ProductReadModel>(configuration);
-            modelBuilder.ApplyConfiguration<ProductCommentReadModel>(configuration);
-            modelBuilder.ApplyConfiguration<RoleReadModel>(configuration);
-            modelBuilder.ApplyConfiguration<UserReadModel>(configuration);
-            modelBuilder.ApplyConfiguration<UserPremiumReadModel>(configuration);     
-            modelBuilder.ApplyConfiguration<UserDiscountCodeReadModel>(configuration);     
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<IdentityUserLogin<int>>()
+               .HasKey(l => new { l.LoginProvider, l.ProviderKey });
+            modelBuilder.Entity<IdentityUserRole<int>>()
+               .HasKey(r => new { r.UserId, r.RoleId });
+
+            var configuration = new ContextConfiguration();
+            modelBuilder.ApplyConfiguration<Blog>(configuration);
+            modelBuilder.ApplyConfiguration<BlogComment>(configuration);
+            modelBuilder.ApplyConfiguration<Discount>(configuration);
+            modelBuilder.ApplyConfiguration<Order>(configuration);
+            modelBuilder.ApplyConfiguration<OrderDetail>(configuration);
+            modelBuilder.ApplyConfiguration<Product>(configuration);
+            modelBuilder.ApplyConfiguration<ProductCategory>(configuration);
+            modelBuilder.ApplyConfiguration<ProductComment>(configuration);
+            modelBuilder.ApplyConfiguration<User>(configuration);
+            modelBuilder.ApplyConfiguration<Role>(configuration);
+            //modelBuilder.ApplyConfiguration<UserRole>(configuration);
+
+            modelBuilder.ApplyConfiguration<UserPremium>(configuration);
+
+
+            modelBuilder.ApplyConfiguration<UserDiscountCode>(configuration);
+
         }
     }
 }

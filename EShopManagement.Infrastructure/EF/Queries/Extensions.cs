@@ -6,107 +6,104 @@ using EShopManagement.Application.DTOs.Product.Admin;
 using EShopManagement.Application.DTOs.Product.Client;
 using EShopManagement.Application.DTOs.User.Admin;
 using EShopManagement.Application.DTOs.User.Client;
-using EShopManagement.Domain.ValueObjects.Product;
-using EShopManagement.Infrastructure.EF.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using EShopManagement.Domain.Entities.Blog;
+using EShopManagement.Domain.Entities.Order;
+using EShopManagement.Domain.Entities.Product;
+using EShopManagement.Domain.Entities.User;
+ 
 namespace EShopManagement.Infrastructure.EF.Queries
 {
     internal static class Extensions
     {
         #region Blogs And BlogComments
-        public static AdminBlogsListDto AsAdminBlogsListDto(this BlogReadModel readModel)
+        public static AdminBlogsListDto AsAdminBlogsListDto(this Blog readModel)
           => new()
           {
-              CreateDate = readModel.CreateDate,
+              CreateDate = readModel._createDate.Value,
               Id = readModel.Id,
               ImageName = readModel.ImageName,
-              Title = readModel.Title,
-              UpdateDate = readModel.UpdateDate
+              Title = readModel._title.Value,
+              UpdateDate = readModel._updateDate.Value
           };
-        public static AdminBlogDto AsAdminBlogDto(this BlogReadModel readModel)
+        public static AdminBlogDto AsAdminBlogDto(this Blog readModel)
         {
 
             return new()
             {
-                CreateDate = readModel.CreateDate,
+                CreateDate = readModel._createDate.Value,
                 Id = readModel.Id,
                 ImageName = readModel.ImageName,
-                Title = readModel.Title,
-                UpdateDate = readModel.UpdateDate,
-                Content = readModel.Content,
+                Title = readModel._title.Value,
+                UpdateDate = readModel._updateDate.Value,
+                Content = readModel._content.Value,
                 IsDeleted = readModel.IsDeleted,
-                ShortDescription = readModel.ShortDescription,
-                Tags = TagsReadModel.ConvertToString(readModel.Tags)
+                ShortDescription = readModel._shortDescription.Value,
+                Tags = readModel.Tags
             };
         }
-        public static AdminBlogCommentDto AsAdminBlogCommentDto(this BlogCommentReadModel readModel)
+        public static AdminBlogCommentDto AsAdminBlogCommentDto(this BlogComment readModel)
         {
 
             return new()
             {
                 BlogId = readModel.BlogId,
                 CommentId = readModel.Id,
-                Content = readModel.Content,
+                Content = readModel._content.Value,
                 IsConfirmed = readModel.IsConfirmed,
                 UserId = readModel.UserId
             };
         }
-        public static ClientBlogCommentDto AsClientBlogCommentDto(this BlogCommentReadModel readModel)
+        public static ClientBlogCommentDto AsClientBlogCommentDto(this BlogComment readModel)
         {
 
             return new()
             {
-                CommentedFor = readModel.Blog.Title,
-                Content = readModel.Content,
-                UserAvatarName = readModel.User.AvatarName,
+                CommentedFor = readModel.Blog._title.Value,
+                Content = readModel._content.Value,
+                UserAvatarName = readModel.User.UserAvatar,
                 UserName = readModel.User.UserName,
             };
         }
-        public static ClientBlogDto AsClientBlogDto(this BlogReadModel readModel)
+        public static ClientBlogDto AsClientBlogDto(this Blog readModel)
         {
             return new()
             {
                 ImageName = readModel.ImageName,
-                Title = readModel.Title,
+                Title = readModel._title.Value,
                 Comments = readModel.BlogComments.Select(s => s.AsClientBlogCommentDto()).ToList(),
-                Content = readModel.Content,
-                ShortDescription = readModel.ShortDescription,
-                Tags = TagsReadModel.ConvertToString(readModel.Tags)
+                Content = readModel._content.Value,
+                ShortDescription = readModel._shortDescription.Value,
+                Tags =  readModel.Tags 
             };
         }
-        public static ClientBlogsListDto AsClientBlogsListDto(this BlogReadModel readModel)
+        public static ClientBlogsListDto AsClientBlogsListDto(this Blog readModel)
         {
             return new()
             {
                 ImageName = readModel.ImageName,
-                Title = readModel.Title,
-                ShortDescription = readModel.ShortDescription,
-                CreateDate = readModel.CreateDate,
+                Title = readModel._title.Value,
+                ShortDescription = readModel._shortDescription.Value,
+                CreateDate = readModel._createDate.Value,
                 Id = readModel.Id,
-                UpdateDate = readModel.UpdateDate
+                UpdateDate = readModel._updateDate.Value
             };
         }
         #endregion
         #region Order
-        public static AdminDiscountDto AsAdminDiscountDto(this DiscountReadModel readModel)
+        public static AdminDiscountDto AsAdminDiscountDto(this Discount readModel)
         {
             return new()
             {
                 Id = readModel.Id,
-                Code = readModel.DiscountCode,
+                Code = readModel._discountCode.Value,
                 EndDate = readModel._dateRange.EndDate,
                 StartDate = readModel._dateRange.StartDate,
                 IsDelete = readModel.IsDeleted,
-                Percent = readModel.DiscountPercent,
+                Percent = readModel._discountPercent.Value,
                 UsableCount = readModel.UsableCount,
             };
         }
-        public static OrderDetailDto AsOrderDetailDto(this OrderDetailReadModel readModel)
+        public static OrderDetailDto AsOrderDetailDto(this OrderDetail readModel)
         {
             return new()
             {
@@ -116,21 +113,21 @@ namespace EShopManagement.Infrastructure.EF.Queries
                 ProductId = readModel.ProductId
             };
         }
-        public static OrderDto AsOrderDto(this OrderReadModel readModel)
+        public static OrderDto AsOrderDto(this Order readModel)
         {
             return new()
             {
                 OrderId = readModel.Id,
-                CreateDate = readModel.CreateDate,
+                CreateDate = readModel._createDate.Value,
                 IsFinaly = readModel.IsFinaly,
-                OrderDetails = readModel.OrderDetails.Select(s => s.AsOrderDetailDto()).ToList(),
+                OrderDetails = readModel?.OrderDetails?.Select(s => s.AsOrderDetailDto())?.ToList(),
                 OrderSum = readModel.OrderSum,
                 UserId = readModel.UserId
             };
         }
         #endregion
         #region Product
-        public static AdminProductCategoryDto AsAdminProductCategoryDto(this ProductCategoryReadModel readModel)
+        public static AdminProductCategoryDto AsAdminProductCategoryDto(this ProductCategory readModel)
         {
             return new()
             {
@@ -140,104 +137,105 @@ namespace EShopManagement.Infrastructure.EF.Queries
                 Title = readModel.Title
             };
         }
-        public static AdminProductCommentDto AsAdminProductCommentDto(this ProductCommentReadModel readModel)
+        public static AdminProductCommentDto AsAdminProductCommentDto(this ProductComment readModel)
         {
             return new()
             {
                 CommentId = readModel.Id,
                 UserId = readModel.UserId,
-                Content = readModel.Content,
-                CreateDate = readModel.CreateDate,
+                Content = readModel._content.Value,
+                CreateDate = readModel._createDate.Value,
                 IsConfirmed = readModel.IsConfirmed,
                 ProductId = readModel.ProductId
 
             };
         }
-        public static AdminProductDto AsAdminProductDto(this ProductReadModel readModel)
+        public static AdminProductDto AsAdminProductDto(this Product readModel)
         {
             return new()
             {
                 ProductId = readModel.Id,
                 CategoryId = readModel.CategoryId,
                 CellerId = readModel.CellerId,
-                CreateDate = readModel.CreateDate,
-                Description = readModel.Description,
-                FileName = readModel.FileName,
+                CreateDate = readModel._createDate.Value,
+                Description = readModel._description.Value,
+                FileName = readModel._fileName.Value,
                 ImageName = readModel.ImageName,
                 IsAvailable = readModel.IsAvailable,
                 IsPremium = readModel.IsPremium,
-                Price = readModel.Price,
-                ShortDescription = readModel.ShortDescription,
+                Price = readModel._price.Value,
+                ShortDescription = readModel._shortDescription.Value,
                 SubCategoryId = readModel.SubCategoryId,
-                Tags = TagsReadModel.ConvertToString(readModel.Tags),
-                Title = readModel.Title,
-                UpdateDate = readModel.UpdateDate
+                Tags =  readModel.Tags ,
+                Title = readModel._title.Value,
+                UpdateDate = readModel._updateDate.Value
             };
         }
-        public static AdminPtoductsListDto AsAdminPtoductsListDto(this ProductReadModel readModel)
+        public static AdminPtoductsListDto AsAdminPtoductsListDto(this Product readModel)
         {
             return new()
             {
                 ProductId = readModel.Id,
-                CreateDate = readModel.CreateDate,
+                CreateDate = readModel._createDate.Value,
                 CategoryTitle = readModel.ProductCategory.Title,
                 CellerUserName = readModel.Users.SingleOrDefault(u => u.Id == readModel.CellerId).UserName,
                 SubCategoryTitle = readModel.ProductCategory.ProductCategories.SingleOrDefault(c => c.Id == readModel.SubCategoryId).Title,
                 ImageName = readModel.ImageName,
                 IsAvailable = readModel.IsAvailable,
                 IsPremium = readModel.IsPremium,
-                Price = readModel.Price,
-                ShortDescription = readModel.ShortDescription,
-                Title = readModel.Title,
-                UpdateDate = readModel.UpdateDate
+                Price = readModel._price.Value,
+                ShortDescription = readModel._shortDescription.Value,
+                Title = readModel._title.Value,
+                UpdateDate = readModel._updateDate.Value
             };
         }
-        public static ClientProductCommentDto AsClientProductCommentDto(this ProductCommentReadModel readModel)
+        public static ClientProductCommentDto AsClientProductCommentDto(this ProductComment readModel)
         {
             return new()
             {
-                Content = readModel.Content,
-                CreateDate = readModel.CreateDate.ToShortDateString(),
+                Content = readModel._content.Value,
+                CreateDate = readModel._createDate.Value.ToShortDateString(),
                 ProductId = readModel.ProductId,
-                UserAvatarName = readModel.User.AvatarName,
+                UserAvatarName = readModel.User.UserAvatar,
                 UserName = readModel.User.UserName
 
             };
         }
-        public static ClientProductDto AsClientProductDto(this ProductReadModel readModel)
+        public static ClientProductDto AsClientProductDto(this Product readModel)
         {
             return new()
             {
                 ProductId = readModel.Id,
                 CellerId = readModel.CellerId,
-                CreateDate = readModel.CreateDate.ToShortDateString(),
-                Description = readModel.Description,
-                FileName = readModel.FileName,
+                CreateDate = readModel._createDate.Value.ToShortDateString(),
+                Description = readModel._shortDescription.Value,
+                FileName = readModel._fileName,
                 ImageName = readModel.ImageName,
                 IsAvailable = readModel.IsAvailable,
                 IsPremium = readModel.IsPremium,
-                Price = readModel.Price,
-                ShortDescription = readModel.ShortDescription,
-                Tags = TagsReadModel.ConvertToString(readModel.Tags),
-                Title = readModel.Title,
-                UpdateDate = readModel.UpdateDate.Value.ToShortDateString(),
+                Price = readModel._price.Value,
+                ShortDescription = readModel._shortDescription.Value,
+                Tags =  readModel.Tags ,
+                Title = readModel._title.Value,
+                UpdateDate = readModel._updateDate.Value.ToShortDateString(),
                 CategoryTitle = readModel.ProductCategory.Title,
                 SubCategoryTitle = readModel.ProductCategory.ProductCategories.SingleOrDefault(c => c.Id == readModel.SubCategoryId).Title,
             };
         }
-        public static ClientProductsListDto AsClientProductsListDto(this ProductReadModel readModel)
+        public static ClientProductsListDto AsClientProductsListDto(this Product readModel)
         {
             return new()
             {
                 ProductId = readModel.Id,
-                CreateDate = readModel.CreateDate,
+                CreateDate = readModel._createDate.Value,
                 ImageName = readModel.ImageName,
-                ShortDescription = readModel.ShortDescription,
-                Title = readModel.Title,
-                Price = readModel.Price,
+                ShortDescription = readModel._shortDescription.Value,
+                Title = readModel._title.Value,
+                Price = readModel._price.Value,
+                IsPremium = readModel.IsPremium
             };
         }
-        public static ProductCategoriesListDto AsProductCategoriesListDto(this ProductCategoryReadModel readModel)
+        public static ProductCategoriesListDto AsProductCategoriesListDto(this ProductCategory readModel)
         {
             return new()
             {
@@ -248,71 +246,85 @@ namespace EShopManagement.Infrastructure.EF.Queries
         }
         #endregion
         #region User
-        public static AdminAllRoleDto AsAdminAllRoleDto(this RoleReadModel readModel)
+        public static AdminAllRoleDto AsAdminAllRoleDto(this Role  readModel)
         {
             return new()
             {
                 Id = readModel.Id,
-                Title = readModel.Title
+                Title = readModel.Name
             };
         }
-        public static AdminRoleUsersDto AsAdminRoleUsersDto(this RoleReadModel readModel)
+        public static AdminRoleUsersDto AsAdminRoleUsersDto(this Role  readModel)
         {
             return new()
             {
                 Id = readModel.Id,
-                Title = readModel.Title,
-                UserIds = readModel.Users.Select(u => u.Id).ToList()
-            };
+                Title = readModel.Name,
+     
+             };
         }
-        public static AdminUserDto AsAdminUserDto(this UserReadModel readModel)
+        public static AdminUserDto AsAdminUserDto(this User  readModel)
         {
             return new()
             {
                 IsDelete = readModel.IsDeleted,
-                IsPremiumMember = readModel.UserPremium.EndDate > DateTime.Now,
+                IsPremiumMember = readModel.UserPremium._rangeDate.EndDate > DateTime.Now,
                 RegistrationDate = readModel.RegistrationDate,
-                UserAvatarName = readModel.AvatarName,
+                UserAvatarName = readModel.UserAvatar ,
                 UserId = readModel.Id,
                 Email = readModel.Email,
-                
+
                 UserName = readModel.UserName
             };
         }
-        public static AdminUsersListDto AsAdminUsersListDto(this UserReadModel readModel)
+        public static AdminUsersListDto AsAdminUsersListDto(this User  readModel)
         {
             return new()
             {
                 Email = readModel.Email,
-                UserAvatarName = readModel.AvatarName,
+                UserAvatarName = readModel.UserAvatar,
                 UserId = readModel.Id,
                 UserName = readModel.UserName
             };
         }
-        public static ClientUserDto AsClientUserDto(this UserReadModel readModel)
+        public static ClientUserDto AsClientUserDto(this User  readModel)
         {
+            bool isPremiumMember;
+            if (readModel?.UserPremium == null) { isPremiumMember = false; }
+            else { isPremiumMember = readModel?.UserPremium?._rangeDate.EndDate > DateTime.Now; }
             return new()
             {
-                IsPremiumMember = readModel.UserPremium.EndDate > DateTime.Now,
+                IsPremiumMember = isPremiumMember,
                 RegistrationDate = readModel.RegistrationDate.ToShortDateString(),
-                UserAvatarName = readModel.AvatarName,
-                PremiumExpireDate = readModel?.UserPremium?.EndDate.ToShortDateString(),
+                UserAvatarName = readModel.UserAvatar,
+                PremiumExpireDate = readModel?.UserPremium?._rangeDate.EndDate.ToShortDateString(),
                 Email = readModel.Email,
                 UserName = readModel.UserName
             };
-        } 
-        public static PaymentFactorDto AsPaymentFactorDto(this OrderReadModel readModel)
+        }
+        public static ClientEditUserAvatarDto AsClientEditUserAvatarDto(this User  readModel)
+        {
+     
+            return new()
+            {
+                UserId= readModel.Id,
+                UserAvatarName = readModel.UserAvatar,
+              
+            };
+        }
+        public static PaymentFactorDto AsPaymentFactorDto(this Order readModel)
         {
             return new()
             {
-                CreateDate = readModel.CreateDate,
+                CreateDate = readModel._createDate.Value,
                 IsFinaly = readModel.IsFinaly,
                 OrderId = readModel.Id,
                 OrderSum = readModel.OrderSum,
                 UserId = readModel.UserId,
-                DetailDto = readModel.OrderDetails.Select(d=>d.AsOrderDetailDto()).ToList(),            
+                DetailDto = readModel.OrderDetails.Select(d => d.AsOrderDetailDto()).ToList(),
             };
-        }
+        }   
+     
         #endregion
     }
 }

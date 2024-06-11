@@ -11,11 +11,5 @@ namespace EShopManagement.Application.DTOs.User.Client
         public int UserId { get; set; }
         public string UserAvatarName { get; set; }
      
-    }public class ClientEditUserPasswordDto
-    {
-        public int UserId { get; set; }
-        public string OldPassword { get; set; }
-        public string NewPassword { get; set; }
-
     }
 }

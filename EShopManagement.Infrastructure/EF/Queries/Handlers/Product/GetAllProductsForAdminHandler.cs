@@ -3,7 +3,7 @@ using EShopManagement.Application.DTOs.Product.Admin;
 using EShopManagement.Application.Queries.Order;
 using EShopManagement.Application.Queries.Product;
 using EShopManagement.Infrastructure.EF.Contexts;
-using EShopManagement.Infrastructure.EF.Models;
+ 
 using EShopManagement.Shared.Abstractions.Queries;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,7 +17,7 @@ namespace EShopManagement.Infrastructure.EF.Queries.Handlers.Product
 
     internal sealed class GetAllProductsForAdminHandler : IQueryHandler<GetAllProductsForAdmin, List<AdminPtoductsListDto>>
     {
-        private readonly DbSet<ProductReadModel> _products;
+        private readonly DbSet<Domain.Entities.Product.Product> _products;
 
 
         public GetAllProductsForAdminHandler(ReadDbContext context)
@@ -30,10 +30,10 @@ namespace EShopManagement.Infrastructure.EF.Queries.Handlers.Product
             int skip = (query.PageNumber - 1) * query.TakeNumber;
             return await _products
                  .Where(b =>
-                 b.Title.Contains(query.SearchPhrase) ||
-                 b.Tags.Tags.Contains(query.SearchPhrase) &&
+                 b._title.Value.Contains(query.SearchPhrase) ||
+                 b.Tags.Contains(query.SearchPhrase) &&
                  query.CategoryIds.Contains(b.CategoryId))
-                 .OrderBy(o => o.CreateDate)
+                 .OrderBy(o => o._createDate.Value)
                  .Skip(skip)
                  .Take(query.TakeNumber)
                  .Select(s => s.AsAdminPtoductsListDto())

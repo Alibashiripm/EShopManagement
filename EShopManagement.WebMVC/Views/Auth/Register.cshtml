@@ -1,0 +1,48 @@
+﻿@using EShopManagement.Application.Commands.User
+@model CreateUser
+@{
+    ViewData["Title"] = "Register";
+}
+ 
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Eshop Management</a></li>
+            <li class="breadcrumb-item" aria-current="page">Register</li>
+        </ul>
+    </nav>
+</div>
+<main class="client-page">
+    <div class="container-content">
+
+        <header style="color : #2ec4b6 "><h2> Register </h2></header>
+
+        <div class="form-layer">
+
+            <form asp-action="Register" method="post">
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="username"><i class="zmdi zmdi-account"></i></span>
+                    <input asp-for="userName" type="text" class="form-control" placeholder="UserName" aria-describedby="username">
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="email-address"><i class="zmdi zmdi-email"></i></span>
+                    <input asp-for="email" type="text" class="form-control" placeholder="Email" aria-describedby="email-address">
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="password"><i class="zmdi zmdi-lock"></i></span>
+                    <input asp-for="password" type="password" class="form-control" placeholder="Password " aria-describedby="password">
+                </div>
+                <div class="link">
+                    <a href="/Login"> <i class="zmdi zmdi-account"></i> Login </a>
+                </div>
+ 
+                <button class="btn btn-success"> Register </button>
+
+            </form>
+        </div>
+
+    </div>
+</main>

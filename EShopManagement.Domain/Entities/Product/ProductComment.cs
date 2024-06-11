@@ -12,13 +12,13 @@ namespace EShopManagement.Domain.Entities.Product
         public ProductCommentCreateDate _createDate;
         public bool IsConfirmed { get; private set; }
         #region relations
-        public long ProductId { get;private set; }
-        public long UserId { get;private set; }
+        public int ProductId { get;private set; }
+        public int UserId { get;private set; }
         public Product Product { get;private set; }
         public User.User User { get; private set; }
         #endregion
         public ProductComment(ProductCommentContent content, ProductCommentCreateDate createDate, bool isConfirmed,
-                    long productId, long userId)
+                    int productId, int userId)
         {
 
             _content = content;

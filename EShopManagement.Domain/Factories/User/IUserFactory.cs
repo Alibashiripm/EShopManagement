@@ -8,6 +8,6 @@ namespace EShopManagement.Domain.Factories.User
 {
     public interface IUserFactory
     {
-        Entities.User.User Create(string UserName, string Email,string UserAvatarName,string ActiveCode);
+        Entities.User.User Create(string UserName, string Email );
     } 
 }

@@ -1,0 +1,19 @@
+﻿@model string[]
+@{
+    ViewData["Title"] = "End of registration";
+}
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Eshop Management</a></li>
+            <li class="breadcrumb-item" aria-current="page">End of registration</li>
+        </ul>
+    </nav>
+</div>
+<div class="alert alert-success">
+    <h2> Dear @Model[0]!</h2>
+    <p>Your registration has been completed, an email containing an activation link will be sent to your email "@Model[1]" Sent .</p>
+    <p>To continue registration, enter your email and click on the link.</p>
+    <p>Note that the email may be in the spam section, so check there as well</p>
+</div>
+

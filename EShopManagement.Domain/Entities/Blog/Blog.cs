@@ -11,8 +11,8 @@ namespace EShopManagement.Domain.Entities.Blog
         public BlogTitle _title;
         public BlogContent _content;
         public BlogShortDescription _shortDescription;
-        public string Tags { get;}
-        public string ImageName { get;}
+        public string Tags { get;private set;}
+        public string ImageName { get; private set; }
         public BlogCreateDate _createDate ;
         public BlogUpdateTime? _updateDate ;
         public bool IsDeleted { get; private set; } 

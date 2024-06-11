@@ -1,7 +1,7 @@
 ﻿using EShopManagement.Application.DTOs.Order;
 using EShopManagement.Application.Queries.Order;
 using EShopManagement.Infrastructure.EF.Contexts;
-using EShopManagement.Infrastructure.EF.Models;
+ 
 using EShopManagement.Shared.Abstractions.Queries;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +9,7 @@ namespace EShopManagement.Infrastructure.EF.Queries.Handlers.Order
 {
     internal sealed class GetUserOrderHandler : IQueryHandler<GetUserOrder, OrderDto>
     {
-        private readonly DbSet<OrderReadModel> _orders;
+        private readonly DbSet<Domain.Entities.Order.Order > _orders;
 
 
         public GetUserOrderHandler(ReadDbContext context)

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace EShopManagement.Application.Commands.Order.Handlers
 {
-    internal sealed class CreateOrderHandler : ICommandHandler<CreateOrder>
+    internal sealed class CreateOrderHandler : ICommandHandler<CreateOrder,int>
     {
         private readonly IOrderFactory _factory;
         private readonly IGenericRepository<Domain.Entities.Order.Order, int> _repository;
@@ -21,11 +21,13 @@ namespace EShopManagement.Application.Commands.Order.Handlers
             _factory = factory;
             _repository = repository;
         }
-        public async Task HandleAsync(CreateOrder command)
+        public async Task<int> HandleAsync(CreateOrder command)
         {
             var order = command.Order;
             var orderEntity = _factory.Create(order.OrderSum ,order.IsFinaly, DateTime.Now, order.UserId);
             await _repository.CreateAsync(orderEntity);
+
+            return orderEntity.Id;
         }
     }  
 }

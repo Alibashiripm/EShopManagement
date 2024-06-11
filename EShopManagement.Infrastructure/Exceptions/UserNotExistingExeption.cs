@@ -13,7 +13,7 @@ namespace EShopManagement.Infrastructure.Exceptions
     
         public string ExistedName { get; }
         public UserNotExistingExeption(string existedName)
-            : base($"The User with '{existedName}' already exists.")
+            : base($"The User with '{existedName}' not exists.")
         {
              ExistedName = existedName;
         }

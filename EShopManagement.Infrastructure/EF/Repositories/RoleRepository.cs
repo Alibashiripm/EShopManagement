@@ -30,11 +30,11 @@ namespace EShopManagement.Infrastructure.EF.Repositories
         }
 
         public async Task<ICollection<Role>> GetAllAsync()
-        => await _role.Include(p => p.Users).ToListAsync();
+        => await _role.ToListAsync();
 
 
         public async Task<Role> GetByIdAsync(int Id)
-       => await _role.Include(p => p.Users).SingleOrDefaultAsync(p => p.Id == Id);
+       => await _role.SingleOrDefaultAsync(p => p.Id == Id);
 
         public async Task UpdateAsync(Role entity)
         {

@@ -6,13 +6,13 @@ namespace EShopManagement.Domain.Entities.Order
     {
 
         public int Id { get;private set; }
-        public int OrderId { get;}
-        public int ProductId { get;  }
-        public decimal Price { get; }
+        public int OrderId { get; private set; }
+        public int? ProductId { get; private set; }
+        public decimal Price { get;private set; }
         public Order Order { get; set; }
-        public Product.Product Product { get; set; }
+        public Product.Product? Product { get; set; }
         public bool IsDeleted { get; private set; }
-        internal OrderDetail( int orderId, int productId, decimal price)
+        internal OrderDetail( int orderId, decimal price, int ?productId = null)
         {
             IsDeleted = false;
            OrderId = orderId;

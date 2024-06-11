@@ -1,0 +1,65 @@
+﻿@using EShopManagement.Application.DTOs.User.Client
+ @model ClientEditUserAvatarDto
+
+@{
+    ViewData["Title"] = "Edit Avatar";
+}
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">EShop Management </a></li>
+            <li class="breadcrumb-item" aria-current="page"> Edit Avatar </li>
+        </ul>
+    </nav>
+</div>
+
+<main>
+    <div class="container">
+        <div class="user-account">
+            <div class="row">
+                <partial name="_SideBar" />
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                    <section class="user-account-content">
+                        <header><h1> Edit Avatar </h1></header>
+                        <div class="inner form-layer">
+                            <form asp-action="EditAvatar" method="post" enctype="multipart/form-data">
+                                <input type="hidden" asp-for="UserId" />
+                                <div class="row">
+
+                                    <div class="col-md-7 col-sm-8 col-xs-12">
+                                        <p class="help-block">
+                                            Avatar
+                                        </p>
+                                        <input id="imageUpload" type="file" name="avatar" asp-for="UserAvatarName" />
+                                        <p>Just select image</p>
+                                        <img class="thumbnail" src="/UserAvatar/@Model.UserAvatarName" id="imagePreview" style="max-width: 150px" />
+                                    </div>
+                                    <div class="col-md-7 col-sm-8 col-xs-12">
+                                        <button class="btn btn-success"> Edit Avatar </button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    document.getElementById('imageUpload').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = document.getElementById('imagePreview');
+                img.src = "";
+                img.src = e.target.result;
+                img.style.display = 'block'; // Show the image tag
+            }
+            reader.readAsDataURL(file);
+        }
+    });</script>

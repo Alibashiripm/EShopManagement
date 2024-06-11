@@ -1,0 +1,93 @@
+﻿@using EShopManagement.Application.DTOs.User.Client
+@model ClientUserDto
+@{
+    ViewData["Title"] = "User Panel" + User.Identity.Name;
+}
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Eshop Management</a></li>
+            <li class="breadcrumb-item" aria-current="page"> User Panel </li>
+        </ul>
+    </nav>
+</div>
+
+<main>
+    <div class="container">
+        <div class="user-account">
+            <div class="row">
+                <partial name="_SideBar"/>
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                    @if (Model.IsPremiumMember)
+                    {
+                        <section class="user-account-content">
+                            <header style="padding: 10px; padding-right:20px;"><h2>The account of premium members of the site</h2></header>
+                            <div class="inner">
+
+                                <div class="row form-style">
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <div class="input-layer">
+                                            <label><i class="zmdi zmdi-view-day"></i>Validity up to : @Model.PremiumExpireDate</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <div class="input-layer">
+                                            <label><i class="zmdi zmdi-view-day"></i>  Status : <span class="text-success text-success">You are a premium member of the site</span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    }
+                    else
+                    {
+                        <section class="user-account-content">
+                            <header style="padding: 10px; padding-right:20px;"><h2>The account of premium members of the site</h2></header>
+                            <div class="inner">
+
+                                <div class="row form-style">
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="alert alert-warning">
+                                            Currently, you are not a special member of the site! If you want to use the facilities of special members, you must buy a subscription
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <a class="button-st green pull-left" href="UserPanel/PremiumPayment" style="padding-left: 20px"> Become a premium member right now </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </section>
+                    }
+
+
+
+                    <section class="user-account-content">
+                        <header><h2> User information </h2></header>
+                        <div class="inner">
+                            <div class="account-information">
+
+                                <ul>
+                                    <li> <i class="zmdi zmdi-assignment-account"></i> UserName:  @Model.UserName </li>
+                                    <li> <i class="zmdi zmdi-email"></i> Email : @Model.Email </li>
+                                    <li> <i class="zmdi zmdi-calendar-check"></i> Registration Date : @Model.RegistrationDate </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+<script>
+    localStorage.setItem('userAvatarPhotoName',  "@Model.UserAvatarName");
+</script>

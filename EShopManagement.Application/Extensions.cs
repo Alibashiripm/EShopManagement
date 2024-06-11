@@ -6,6 +6,7 @@ using EShopManagement.Domain.Factories.Blog;
 using EShopManagement.Domain.Factories.Order;
 using EShopManagement.Domain.Factories.Product;
 using EShopManagement.Domain.Factories.User;
+using EShopManagement.Application.Mapper;
 
 namespace EShopManagement.Application
 {
@@ -25,7 +26,7 @@ namespace EShopManagement.Application
             services.AddSingleton<IUserFactory, UserFactory>();
             services.AddSingleton<IUserPremiumFactory, UserPremiumFactory>();
             services.AddSingleton<IUserRoleFactory, RoleFactory>();
- 
+            services.AddAutoMapper(typeof(MapperProfile));
 
             return services;
         }

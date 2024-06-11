@@ -18,7 +18,7 @@ namespace EShopManagement.Infrastructure.EF.Repositories
 
         public async Task CreateAsync(Order entity)
         {
-            await _order.AddAsync(entity);
+            await _order.AddAsync(entity); 
             await _writeDbContext.SaveChangesAsync();
         }
 

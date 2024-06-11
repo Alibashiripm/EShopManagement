@@ -2,7 +2,7 @@
 using EShopManagement.Application.DTOs.Blog.Client;
 using EShopManagement.Application.Queries.Blog;
 using EShopManagement.Infrastructure.EF.Contexts;
-using EShopManagement.Infrastructure.EF.Models;
+ 
 using EShopManagement.Shared.Abstractions.Queries;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,7 +10,7 @@ namespace EShopManagement.Infrastructure.EF.Queries.Handlers.Blog
 {
     internal sealed class GetAllBlogCommentsForAdminHandler : IQueryHandler<GetBlogsForClient, List<ClientBlogsListDto>>
     {
-        private readonly DbSet<BlogReadModel> _blogs;
+        private readonly DbSet<Domain.Entities.Blog.Blog> _blogs;
      
 
         public GetAllBlogCommentsForAdminHandler(ReadDbContext context)
@@ -21,13 +21,22 @@ namespace EShopManagement.Infrastructure.EF.Queries.Handlers.Blog
         public async Task<List<ClientBlogsListDto>> HandleAsync(GetBlogsForClient query)
         {
             int skip = (query.PageNumber - 1) * query.TakeNumber;
-           return await _blogs
-                .Where(b=>b.Title.Contains(query.SearchPhrase)|| b.Tags.Tags.Contains(query.SearchPhrase))
-                .OrderBy(o=>o.CreateDate)
+ 
+            var filteredBlogs = _blogs
+                
+                .AsQueryable();
+
+             var result =   filteredBlogs
+                .AsEnumerable() 
+                .Where(b => b._title.Value.Contains(query.SearchPhrase) ||
+                            b.Tags.Contains(query.SearchPhrase))
+                .OrderBy(o => o._createDate.Value)
                 .Skip(skip)
                 .Take(query.TakeNumber)
                 .Select(s => s.AsClientBlogsListDto())
-                .AsNoTracking()
-                .ToListAsync();
-        }
-    }    }
+                .ToList ();
+
+            return result;
+        } 
+    }
+}

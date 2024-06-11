@@ -1,0 +1,26 @@
+﻿@using EShopManagement.Application.DTOs.Product
+@model List<ProductCategoriesListDto>
+<div class="main-menu">
+    <div class="container">
+        <nav>
+            <span class="responsive-sign"><i class="zmdi zmdi-menu"></i></span>
+            <ul>
+                @foreach (var category in Model.Where(g => g.CategoryParentId == null))
+                {
+                    <li>
+                        <a href="/Product?selectedGroups=@category.CategoryId"> @category.CategoryTitle </a>
+                        @if (Model.Any(g => g.CategoryParentId == category.CategoryId))
+                        {
+                            <ul>
+                                @foreach (var sub in Model.Where(g => g.CategoryParentId == category.CategoryId))
+                                {
+                                    <li><a href="/Product?selectedGroups=@sub.CategoryId"> @sub.CategoryTitle </a></li>
+                                }
+                            </ul>
+                        }
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>

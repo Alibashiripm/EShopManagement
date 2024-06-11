@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace EShopManagement.Application.Commands.User
 {
-    public record CreateUser(string userName, string email, string password, string userAvatar, string activeCode):ICommand;
+    public record CreateUser(string userName, string email, string password  ):ICommand;
 }

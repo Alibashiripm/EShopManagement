@@ -13,6 +13,6 @@ namespace EShopManagement.Application.DTOs.Order
         public decimal OrderSum { get; set; }
         public bool IsFinaly { get; set; }
         public DateTime CreateDate { get; set; }
-        public List<OrderDetailDto> OrderDetails { get; set; }
+        public List<OrderDetailDto>? OrderDetails { get; set; }
     }
 }

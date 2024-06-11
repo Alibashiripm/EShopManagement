@@ -1,8 +1,57 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "خانه";
+}
+ 
+@section SearchBox
+{
+    <header>
+        <a href="" class="logo"><img src="~/css/images/Untitled-1-min.png"></a>
+        <h1 style="color : #fdfffc"> Eshop Management دنیای لایه باز ها </h1>
+        <h2 style="color : #fdfffc"> موکاپ، وکتور، قالب پست، قالب سایت و ... </h2>
+        <h3 style="color : #fdfffc"> غالبا رایگان </h3>
+    </header>
+    <div class="search-form">
+        <form action="/Product" method="get">
+            <input type="text" name="filter" placeholder="دنبال چه چیزی میگردی ؟">
+            <button><i class="zmdi zmdi-search"></i></button>
+        </form>
+    </div>
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+<main id="home-page">
+    <div class="container">
+        <partial name="_Slider" />
+
+        <section class="terms-items">
+            <header>
+                <h2> آخرین فایل های Eshop Management </h2>
+                <a href="/Products"> مشاهده همه فایل ها </a>
+            </header>
+            @await Component.InvokeAsync("ProductsComponent")
+        </section>
+
+        <hr>
+
+        <section class="terms-items">
+            <header>
+                <h2> محصولات Eshop Management </h2>
+                <a href="/Products?pageId=1&filter=&getType=buy&orderByType=date"> مشاهده همه محصولات </a>
+            </header>
+            @await Component.InvokeAsync("PaidProductsComponent")
+        </section>
+        <hr>
+
+        <section class="terms-items">
+            <header>
+                <h2> مقالات Eshop Management </h2>
+                <a href="/Blogs"> مشاهده همه مقالات </a>
+            </header>
+            <div class="row">
+                @await Component.InvokeAsync("BlogsComponent")
+
+            </div>
+        </section>
+    </div>
+</main>
+

@@ -2,11 +2,14 @@
 {
     public class UserFactory : IUserFactory
     {
-        public Entities.User.User Create(string UserName, string Email,  string UserAvatarName, string ActiveCode)
-      => new(UserName,
-                Email,
-              
-                UserAvatarName,
-                ActiveCode);
+        public Entities.User.User Create(string UserName, string Email)
+     {
+        
+
+
+          return  new(UserName,
+                   Email          
+                );
+        }
     }
 }

@@ -5,9 +5,9 @@ namespace EShopManagement.Domain.Entities.Product
     public class ProductCategory : AggregateRoot<int>
     {
         public int  Id { get;private set; }
-        public string Title { get;  }
+        public string Title { get; private set; }
         public bool IsDeleted { get; private set; }
-        public int? ParentId { get;  }
+        public int? ParentId { get;  private set;}
         public List<ProductCategory> ProductCategories { get; set; }
         public  List<Product> Products { get; set; }
         internal ProductCategory(  string title, bool isDeleted, int? parentId)

@@ -9,8 +9,8 @@ namespace EShopManagement.Domain.Factories.Order
 {
     public class OrderDetailFactory : IOrderDetailFactory
     {
-        public OrderDetail Create(int orderId, int productId, decimal price)
-        => new OrderDetail(orderId, productId, price);
+        public OrderDetail Create(int orderId, decimal price, int? productId=null)
+        => new OrderDetail(orderId, price, productId);
              
     }
 }

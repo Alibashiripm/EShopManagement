@@ -1,0 +1,17 @@
+﻿@using EShopManagement.Application.DTOs.Blog.Client
+@using EShopManagement.WebMVC.Tools
+@model List<ClientBlogsListDto>
+
+<div class="row">
+    @foreach (var blog in Model)
+    {
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 term-col">
+            <article>
+                <a href="/Blog/@blog.Title" class="img-layer"><img src="/Blog/thumb/@blog.ImageName"></a>
+                <h2><a href="/Blog/@blog.Title"> @blog.Title </a></h2>
+                <span> Eshop Management </span>
+                <i>@blog.CreateDate.ToShamsi()</i>
+            </article>
+        </div>
+    }
+</div>s

@@ -1,0 +1,24 @@
+﻿@using EShopManagement.Application.DTOs.Product.Client
+@using EShopManagement.WebMVC.Tools
+@model List<ClientProductsListDto>
+<div class="row">
+   @foreach (var product in Model)
+    {
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 term-col">
+            <article>
+                <a href="/Product/@product.Title" class="img-layer"><img src="/Product/thumb/@product.ImageName"></a>
+                <h2><a href="/Product/@product.Title"> @product.Title </a></h2>
+                @if (product.IsPremium == true)
+                {
+                    <Span>اعضای ویژه</Span>
+                }
+                else
+                {
+                    <span> @((product.Price == 0) ? "رایگان" : product.Price.ToString("#,0")) </span>
+                }
+                <i>@product.CreateDate.ToShamsi()</i>
+            </article>
+        </div>
+    }
+
+</div>
