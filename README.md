@@ -60,7 +60,7 @@ This project is a comprehensive web Eshop application developed using ASP.NET an
 4. Update the database:
    ```bash
    dotnet ef database update
-5.Run the application:
+5. Run the application:
    ```bash
    dotnet run
  ```
