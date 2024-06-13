@@ -39,13 +39,11 @@ This project is a comprehensive web Eshop application developed using ASP.NET an
 - **AutoMapper**: For object-object mapping.
 - **Swagger**: For API documentation.
 - **xUnit**: For unit testing.
- 
 ### Prerequisites
 
 - .NET 8 SDK
 - SQL Server
 - VS (optional)
-
 ### Installation
 
 1. Clone the repository:
@@ -60,11 +58,11 @@ This project is a comprehensive web Eshop application developed using ASP.NET an
 4. Update the database:
    ```bash
    dotnet ef database update
+
 5. Run the application:
    ```bash
    dotnet run
- ```
+ 
 ## Authors
-
-- [@Alibashiripm](https://github.com/Alibashiripm)
+[@Alibashiripm](https://github.com/Alibashiripm)
 
